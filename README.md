@@ -51,6 +51,27 @@ Python and the FastAPI framework were used for the API development, along with D
 - requirements.txt
 ```
 
+The `app` directory contains the main application code.
+
+- The api directory holds the API-related code.
+
+-- celery.py sets up Celery for asynchronous task processing.
+-- dependencies.py defines dependencies used by the API endpoints.
+-- main.py is the entry point of the FastAPI application.
+-- The routers directory contains individual router modules for each endpoint.
+-- The schemas directory defines the data models used for request and response payloads.
+
+- The infrastructure directory includes infrastructure-related code.
+
+-- database.py sets up the database connection using SQLModel.
+
+- The tests directory contains test files for unit testing and integration testing.
+
+- The project root directory contains the following files:
+
+-- Dockerfile specifies the Docker image configuration.
+-- docker-compose.yml defines the services and their configuration for Docker Compose.
+-- requirements.txt lists the project dependencies.
 ## Running the Application
 Follow these steps to run the application:
 
@@ -64,9 +85,33 @@ Follow these steps to run the application:
 ```
 docker-compose up --build
 ```
+This command will start the application and its dependencies (such as the database, RabbitMQ, and Celery).
+
 5. Once the services are up and running, you can access the API at
 http://localhost:8000
 
 6. You can see and use openapi autodocumentation tool or any API client to perform the following operations:
 
 ![OpenAPi Autodocumentation](endpoints.PNG)
+
+## The API provides the following endpoints:
+
+- `POST /create_location/`: Creates a new location record in the database.
+
+- `GET /read_locations/`: Reads all location records from the database.
+
+- `GET /read_location/`: Reads a location record by ID from the database.
+
+- `PUT /update_location/`: Updates a location record by ID in the database.
+
+- `DELETE /delete_location/`: Deletes a location record by ID from the database.
+
+- `POST /calculate_distance/`: Creates a task to calculate the linear distance between location records and returns the task ID.
+
+- `POST /calculate_distance_haversine/`: Creates a task to calculate the haversine distance between location records and returns the task ID.
+
+- `GET /get_task_status/`: Gets the result of a distance calculation task by task ID.
+
+- `POST /token/`: Generates an access token for authentication.
+
+- `POST /register_user/`: Registers a new user.
