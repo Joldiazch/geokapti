@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
-from app.infrastructure.database import create_db
+from app.infrastructure.database import create_db, populate_tables
 from app.api.routers import location_router, auth_router
 
 app = FastAPI()
@@ -20,6 +20,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     create_db()
+    populate_tables()
 
 @app.get("/", include_in_schema=False)
 def read_root():

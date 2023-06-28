@@ -54,24 +54,22 @@ Python and the FastAPI framework were used for the API development, along with D
 The `app` directory contains the main application code.
 
 - The api directory holds the API-related code.
-
--- celery.py sets up Celery for asynchronous task processing.
--- dependencies.py defines dependencies used by the API endpoints.
--- main.py is the entry point of the FastAPI application.
--- The routers directory contains individual router modules for each endpoint.
--- The schemas directory defines the data models used for request and response payloads.
+  - celery.py sets up Celery for asynchronous task processing.
+  - dependencies.py defines dependencies used by the API endpoints.
+  - main.py is the entry point of the FastAPI application.
+  - The routers directory contains individual router modules for each endpoint.
+  - The schemas directory defines the data models used for request and response payloads.
 
 - The infrastructure directory includes infrastructure-related code.
-
--- database.py sets up the database connection using SQLModel.
+  - database.py sets up the database connection using SQLModel.
 
 - The tests directory contains test files for unit testing and integration testing.
 
 - The project root directory contains the following files:
+  - Dockerfile specifies the Docker image configuration.
+  - docker-compose.yml defines the services and their configuration for Docker Compose.
+  - requirements.txt lists the project dependencies.
 
--- Dockerfile specifies the Docker image configuration.
--- docker-compose.yml defines the services and their configuration for Docker Compose.
--- requirements.txt lists the project dependencies.
 ## Running the Application
 Follow these steps to run the application:
 
@@ -88,11 +86,20 @@ docker-compose up --build
 This command will start the application and its dependencies (such as the database, RabbitMQ, and Celery).
 
 5. Once the services are up and running, you can access the API at
-http://localhost:8000
+- http://localhost:8000
+- When the services run correctly, several locations representing cities are automatically added to the database, and a user whose credentials are username='admin' and password='admin' is automatically created.
 
 6. You can see and use openapi autodocumentation tool or any API client to perform the following operations:
 
 ![OpenAPi Autodocumentation](endpoints.PNG)
+
+7. Click on the Authorize button, and login with the user admin credentials (username=admin, password=admin)
+
+8. Go to the `GET /read_locations/` endpoint then yo can see all locations in the database.
+
+9. Go to `POST /calculate_distance_haversine/` endpoint and pass any locations ids selected of the previus step.
+
+10. With the `GET /get_task_status/` endpoint yo can check of the result of the distance between the locations.
 
 ## The API provides the following endpoints:
 
