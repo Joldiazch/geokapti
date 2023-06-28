@@ -6,10 +6,10 @@ from typing import List
 from app.infrastructure.database import SessionLocal
 
 
-# Configuración de la cola de tareas de Celery
+# Celery task queue setup
 app = Celery('tasks', broker='amqp://rabbitmq', backend='redis://redis')
 
-# Configuración adicional de Celery
+
 app.conf.update(
     result_expires=3600,
     task_serializer='json',
@@ -26,7 +26,7 @@ app.conf.task_routes = {
 
 @app.task
 def calculate_distance_task(locations_ids: List[int]) -> float:
-    # Realizar el cálculo de la distancia entre las ubicaciones
+    # Calculate the distance between locations
     session = SessionLocal()
     locations = session.query(Location).filter(Location.id.in_(tuple(locations_ids))).all()
     total_distance = 0.0
